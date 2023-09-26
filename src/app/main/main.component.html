@@ -1,0 +1,26 @@
+<div class="main-container">
+    <ng-container *ngIf="!this.setUpService.isEnd()">
+        <div class="timer-container">
+            <h1 class="c_primary">{{this.setUpService.countdown()}}</h1>
+        </div>
+        <div class="elements-container" *ngIf="!this.setUpService.isTimeout()">
+            <app-exercise *ngFor="let person of [].constructor(this.setUpService.qtyPeople); let idx=index;"
+                [personIdx]="idx"
+                [currentExecIdx]="this.setUpService.currentExecIdx()"
+                [showNext]="this.setUpService.showNext()">
+            </app-exercise>
+        </div>
+        <!-- <ng-container *ngIf="this.setUpService.isTimeout()"> -->
+            <div class="timeout-container"  *ngIf="this.setUpService.isTimeout()">
+                <mat-icon fontIcon="bolt" class="c_accent"></mat-icon>
+                <h1>Time-out</h1>
+            </div>
+        <!-- </ng-container> -->
+    </ng-container>
+    <ng-container *ngIf="this.setUpService.isEnd()">
+        <div class="end-container">
+            <mat-icon fontIcon="star" class="c_accent"></mat-icon>
+            <h1>Time's up</h1>
+        </div>
+    </ng-container>
+</div>

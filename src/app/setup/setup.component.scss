@@ -1,0 +1,14 @@
+@import "../../shared/scss/variables.scss";
+
+.container {
+    width: 600px;
+    height: auto;
+    margin: 2em;
+    display: flex; 
+    flex-direction: column;
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+}

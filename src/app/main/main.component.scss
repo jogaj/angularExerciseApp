@@ -1,0 +1,63 @@
+@import "../../shared/scss/variables.scss";
+
+.main-container{
+    height: 100%;
+    // background-color: red;
+    width: 100%;
+    position: absolute;
+
+    .timer-container {
+        // background-color: blue;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+            font-size: 5em;
+            font-weight: bold;
+            margin: auto;
+        }
+    }
+
+    .elements-container {
+        // background-color: green;
+        height: 90%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+
+        .app-exercise {
+            // flex: 0 1 50%;
+            flex: 1 1 50%;
+        }
+    }
+
+    .end-container {
+        height: 100%;
+    }
+
+    .end-container,
+    .timeout-container {
+       //  height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .mat-icon {
+            font-size: 50em;
+            height: 80%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-weight: bold;
+            font-size: 5em;
+        }
+    }
+}

@@ -1,0 +1,71 @@
+<div class="container">
+    <h1 class="c_primary">Setup today's round</h1>
+    <form [formGroup]="frm" class="form" (submit)="start()">
+        <mat-form-field appearance="fill">
+            <mat-label>Qty of rounds</mat-label>
+            <input
+                formControlName="qtyRounds"
+                matInput
+                type="number"
+                min="1"
+                max="10"
+                >
+            <mat-icon matSuffix>sync</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Qty exercises per round</mat-label>
+            <input
+                formControlName="qtyExercises"
+                matInput
+                type="number"
+                min="1"
+                max="8"
+                >
+            <mat-icon matSuffix>dynamic_feed</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Total mins per exercise</mat-label>
+            <input
+                formControlName="totalMinPerExcercise"
+                matInput
+                min="1"
+                max="10"
+                type="number"
+                class="form-control">
+            <mat-icon matSuffix>more_time</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Timeout time in minutes</mat-label>
+            <input
+            formControlName="timeoutTime"
+                matInput
+                type="number"
+                min="1"
+                max="60"
+                class="form-control">
+                <mat-icon matSuffix>offline_bolt</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Qty of people</mat-label>
+            <input
+            formControlName="qtyPeople"
+                matInput
+                min="1"
+                max="2"
+                type="number"
+                class="form-control">
+                <mat-icon matSuffix>emoji_people</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Zone to train</mat-label>
+            <mat-select formControlName="zone">
+                <ng-container *ngFor="let zone of Zone | keyvalue">
+                    <mat-option *ngIf="zone.value !== Zone.cardio" [value]="zone.key">{{ zone.value }}</mat-option>
+                </ng-container>
+            </mat-select>
+                <mat-icon matSuffix>group_work</mat-icon>
+        </mat-form-field>
+        <button type="submit" mat-flat-button color="primary">Start</button>
+    </form>
+    
+</div>

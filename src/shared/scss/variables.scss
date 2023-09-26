@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/theming';
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-primary: mat-palette($mat-deep-purple);
+$app-accent:  mat-palette($mat-green);
+$app-warn:    mat-palette($mat-red);
+
+// Create your Sass color vars (will be available in all the project)
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);
+
+.c_primary {
+    color: $primary;
+}
+
+.c_accent {
+    color: $accent;
+}
+
+.c_warn {
+    color: $warn;
+}

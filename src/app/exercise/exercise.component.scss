@@ -1,0 +1,40 @@
+.exercise-container {
+        height: 100%;
+        // background-color: rgb(209, 207, 207);
+        
+        width: 100%;
+        
+    .exercise-video {
+        background-color: white;
+        height: 90%;
+    }
+
+    .exercise-data {
+        height: 10%;
+        overflow: hidden;
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0;
+        }
+        // animation: scrolling 10s linear infinite;
+    }
+
+    .exercise-video,
+    .exercise-data {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+}
+
+@keyframes scrolling {
+    0% { transform: translateX(0)};
+    100% { transform: translateX(-100%);}
+}
