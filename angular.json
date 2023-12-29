@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "AngularExerciseApp:build:production"
+              "buildTarget": "AngularExerciseApp:build:production"
             },
             "development": {
-              "browserTarget": "AngularExerciseApp:build:development"
+              "buildTarget": "AngularExerciseApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "AngularExerciseApp:build"
+            "buildTarget": "AngularExerciseApp:build"
           }
         },
         "test": {
