@@ -34,7 +34,8 @@
               "src/styles.scss",
               "src/shared/scss/variables.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -99,7 +100,8 @@
               "src/styles.scss",
               "src/shared/scss/variables.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           }
         },
         "deploy": {

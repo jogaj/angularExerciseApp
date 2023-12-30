@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { WorkerReturnType } from 'src/shared/enums/worker-return.enum';
 import { Zones } from 'src/shared/enums/zones.enum';
 import { Exercise } from 'src/shared/interfaces/exercise.model';
 import { Setup } from 'src/shared/interfaces/setup.model';
@@ -47,64 +48,23 @@ export class SetupService {
         return this.exercisesCompleted === (this.qtyExercises * 2);
     }
 
-
     constructor() {
         this.data = data as Exercise[];
-        // console.log(data);
     }
 
     setInitialSetup(value: Setup): void {
-        this.initialSetup = {...value};
+        this.initialSetup = {...value};        
     }
 
     start(): void {
         this.generateExerciseList();
-        this.generateTimer();
-    }
-
-    private generateTimer(): void {
-        // this.currentExecIdx.update((value) => value + 1);
-        const target = this.getTargetDate().getTime();
-        const interval = setInterval(() => {
-            let now = new Date().getTime();
-            let distance = target - now;
-            // console.log(distance);
-            if (distance < 0) {
-                this.isEnd.set(true);
-                clearInterval(interval);
-                return;
-            }
-            const span = this.calculateSpan(distance);
-            this.countdown.set(this.getTimeInString(span));
-            this.changeIndexes(span.minutes, span.seconds);
-        }, 1000);
-    }
-
-    private getTargetDate(): Date {
-        let dt = new Date();
-
-        this.totalMinRemaining = ((((this.qtyExercises * 2) * this.totalMinPerExcercise) * this.qtyRounds) + ((this.qtyRounds - 1) * this.timeoutTime));
-        dt.setMinutes(dt.getMinutes() + this.totalMinRemaining);
-
-        return dt;
-    }
-
-    private calculateSpan(distance: number): any {
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        return { hours, minutes, seconds };
-    }
-
-    private getTimeInString(span: any): string {
-        return `${span.hours}h : ${span.minutes}m : ${span.seconds}s`;
+        this.startWorker();
     }
 
     private changeIndexes(minutes: number, seconds: number): void {
         if ( minutes === (this.totalMinRemaining - this.totalMinPerExcercise)) {
             // console.log('B');
             // console.log('minutes '+minutes);
-            // // this.isTimeout.set(false);
             // console.log('this.totalMinRemaining '+this.totalMinRemaining);
             // console.log('this.currentExecIdx '+this.currentExecIdx());
             if (this.exercisesCompleted === (this.qtyExercises * 2)) {
@@ -129,11 +89,34 @@ export class SetupService {
         } else {
             this.showNext.set(false);
         }
-
-        
     }
 
-    public generateExerciseList(): void {
+    private startWorker(): void {
+        const worker = new Worker(new URL('../web-workers/worker.worker', import.meta.url));
+        worker.onmessage = ({ data }) => {
+            switch(data.type) {
+                case WorkerReturnType.isEnd:
+                    this.isEnd.set(data.value);
+                    break;
+                case WorkerReturnType.countdown:
+                    this.countdown.set(data.value);
+                    break;
+                case WorkerReturnType.span:
+                    this.changeIndexes(data.value.minutes, data.value.seconds);
+                    break;
+                case WorkerReturnType.totalMinRemaining:
+                    this.totalMinRemaining = data.value;
+                    break;
+            }
+        };
+        worker.postMessage({qtyExercises: this.qtyExercises, 
+            totalMinPerExcercise: this.totalMinPerExcercise, 
+            qtyRounds: this.qtyRounds, 
+            timeoutTime: this.timeoutTime
+        });
+    }
+
+    private generateExerciseList(): void {
         const randomIndexes = this.randomUnique(8, this.qtyExercises);
         // console.log(randomIndexes);
         const cardioEx = (this.data as any).default.filter((ex: Exercise) => ex.type === this.getKeyByValue(Zones.cardio, Zones));
