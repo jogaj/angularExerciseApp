@@ -2,26 +2,23 @@
 
 .main-container{
     height: 100%;
-    // background-color: red;
     width: 100%;
     position: absolute;
 
     .timer-container {
-        // background-color: blue;
         height: 10%;
         display: flex;
         justify-content: center;
         align-items: center;
 
         h1 {
-            font-size: 5em;
+            font-size: 7vh;
             font-weight: bold;
             margin: auto;
         }
     }
 
     .elements-container {
-        // background-color: green;
         height: 90%;
         width: 100%;
         display: flex;
@@ -29,7 +26,6 @@
         gap: 4px;
 
         .app-exercise {
-            // flex: 0 1 50%;
             flex: 1 1 50%;
         }
     }
@@ -40,7 +36,6 @@
 
     .end-container,
     .timeout-container {
-       //  height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -57,7 +52,7 @@
 
         h1 {
             font-weight: bold;
-            font-size: 5em;
+            font-size: 7vh;
         }
     }
 }

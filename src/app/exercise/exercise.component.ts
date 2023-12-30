@@ -13,8 +13,8 @@ export class ExerciseComponent implements OnChanges {
   @Input() currentExecIdx: number;
   @Input() showNext: boolean;
   
-  exercise = signal<unknown | Exercise>(undefined);
-  next = signal<unknown | Exercise>(undefined); 
+  exercise = signal<any | Exercise>(undefined);
+  next = signal<any | Exercise>(undefined); 
 
   readonly setUpService = inject(SetupService);
 

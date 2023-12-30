@@ -59,9 +59,11 @@
         <mat-form-field appearance="fill">
             <mat-label>Zone to train</mat-label>
             <mat-select formControlName="zone">
-                <ng-container *ngFor="let zone of Zone | keyvalue">
-                    <mat-option *ngIf="zone.value !== Zone.cardio" [value]="zone.key">{{ zone.value }}</mat-option>
-                </ng-container>
+                @for(zone of Zone | keyvalue; track $index) {
+                    @if(zone.value !== Zone.cardio) {
+                        <mat-option [value]="zone.key">{{ zone.value }}</mat-option>
+                    }
+                }
             </mat-select>
                 <mat-icon matSuffix>group_work</mat-icon>
         </mat-form-field>

@@ -1,9 +1,16 @@
-<div *ngIf="this.exercise()" class="exercise-container">
-    <div class="exercise-video">
-        <img class="image" *ngIf="this.exercise().url" alt="image" [src]="this.exercise().url">
+@if (this.exercise()) {
+    <div class="exercise-container">
+        <div class="exercise-video">
+            @if(this.exercise().url) {
+                <img class="image" alt="image" [src]="this.exercise().url">
+            }
+        </div>
+        <div class="exercise-data">
+            @if(!this.next()) {
+                <h1>{{this.exercise().title}}</h1>
+            } @else {
+                <h1 class="c_accent">Next > {{ this.setUpService.isNextTimeOut ? 'Time-out' : this.next().title }}</h1>
+            }
+        </div>
     </div>
-    <div class="exercise-data">
-        <h1 *ngIf="!this.next()">{{this.exercise().title}}</h1>
-        <h1 class="c_accent" *ngIf="this.next()">Next > {{ this.setUpService.isNextTimeOut ? 'Time-out' : this.next().title }}</h1>
-    </div>
-</div>
+}

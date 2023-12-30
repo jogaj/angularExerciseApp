@@ -9,11 +9,11 @@ import * as data from 'src/shared/json/data.json';
 })
 export class SetupService {
     public currentExecIdx = signal(-1);
-    public exercisesByPerson: any[] = [];
     public countdown = signal<string>('');
     public isTimeout = signal(false);
     public isEnd = signal(false);
     public showNext = signal(false);
+    public exercisesByPerson: any[] = [];
     public data: Exercise[] = [];
     private initialSetup?: Setup;
     private totalMinRemaining = 0;
